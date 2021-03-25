@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="tailwind.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<style>
+:root {
+  --marquee-width: 100%;
+  /* --marquee-elements: 12; */ /* defined with JavaScript */
+  --marquee-elements-displayed: 5;
+  --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
+  --marquee-animation-duration: calc(var(--marquee-elements) * 3s);
+}
+
+.marquee {
+  width: var(--marquee-width);
+  height: var(--marquee-height);
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee:before, .marquee:after {
+  position: absolute;
+  top: 0;
+  width: 10rem;
+  height: 100%;
+  content: "";
+  z-index: 1;
+}
+
+.marquee-content {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  animation: scrolling var(--marquee-animation-duration) linear infinite;
+}
+
+@keyframes scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--marquee-element-width) * var(--marquee-elements))); }
+}
+
+.marquee-content li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+  flex-shrink: 0;
+  width: var(--marquee-element-width);
+  max-height: 100%;
+  font-size: calc(var(--marquee-height)*3/4); /* 5rem; */
+}
+
+.marquee-content li img {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  html { font-size: 12px; }
+  :root {
+    --marquee-width: 100vw;
+    --marquee-height: 16vh;
+    --marquee-elements-displayed: 7;
+  }
+  .marquee:before, .marquee:after { width: 5rem; }
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 20px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#myBtn {
+    -webkit-animation: breathing 5s ease-out infinite normal;
+    animation: breathing 5s ease-out infinite normal;
+}
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+
+</style>
+
+<body class="h-full font-sans leading-normal tracking-normal bg-cover bg-no-repeat" style="background-image: url('img/bg.jpg');">
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe name="video" class="block w-full" height="640" src="https://www.youtube.com/embed/t5h2IAAsm88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+	<!--Nav-->
+	<nav class="top-0 mt-0 w-full">
+        <div class="bg-white flex items-end px-10 py-2">
+            <img class="h-20" src="img/logo.png" id="image">
+            <p class="font-normal px-2">Better crops. <span class="font-medium">Better</span> yields.</p>
+        </div>
+        <div class="w-full py-1 bg-black bg-opacity-25 flex justify-end">
+            <button onclick="button1()" class="bg-black bg-opacity-25 text-white font-medium px-4 py-2 mx-1 uppercase text-md focus:outline-none hover:bg-white hover:text-gray-800 duration-200">Our foliar formula</button>
+            <button onclick="button2()" class="bg-black bg-opacity-25 text-white font-medium px-4 py-2 mx-1 uppercase text-md focus:outline-none hover:bg-white hover:text-gray-800 duration-200">contact us</button>
+        </div>
+    </nav>
+
+    <!-- Slideshow -->
+    <div class="marquee w-screen">
+        <ul class="marquee-content">
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/1.jpg" /></i></li>
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/2.jpg" /></i></li>
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/3.jpg" /></i></li>
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/4.jpg" /></i></li>
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/5.jpg" /></i></li>
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/6.jpg" /></i></li>
+          <li><i class="fab fa-github"><img class="w-full h-36 lg:h-40 xl:h-48" src="img/7.jpg" /></i></li>
+        </ul>
+      </div>    
+
+
+	<!--Hero-->
+    <div id="page" class="xl:flex mx-10 md:mx-10 xl:mx-14">
+        <div class="xl:w-3/5 flex items-center my-10">
+            <div class="xl:w-2/5 w-1/3">
+                <img class="xl:py-20 xl:pl-20 h-96 xl:h-auto float-right" src="img/bottle.png" style="-webkit-filter: drop-shadow(5px 5px 5px #222); filter: drop-shadow(5px 5px 5px #222);" class="object-scale-down float-right"/>
+            </div>
+            <div class="xl:w-3/5 w-2/3 text-white pl-5" style="text-shadow: 0px 2px 2px rgba(0,0,0,0.6), 0px 4px 10px rgba(0,0,0,0.4), 0px 20px 18px rgba(0,0,0,0.4);">
+                <p class="font-bold text-5xl tracking-tighter italic">Proven to be the best!</p>
+                <p class="font-bold text-3xl">Gro Plant Booster</p>
+                <p class="font-medium text-2xl">Seeing is believing</p>
+                <div class="xl:w-1/2">
+                    <p class="font-normal text-xl font-light">Seaweed-based foliar plant growth regulator that delivers essential micro and secondary macro-nutrients to each plant. Healthier plants and significantly higher yields.</p>
+                </div>
+            </div>
+        </div>
+        <div class="xl:w-2/5 xl:m-10 w-full mb-20">
+            <div class="w-full bg-white rounded-xl p-10 shadow-lg">
+                <div id="content1">
+                    <p class="text-lg">Our U.S. patented foliar formula is all-natural, seaweed based, and proven highly effective by delivering essential micro and secondary macro-nutrients to each plant. The result is a fast start, stronger plant structure, increased root density and length for greater nutrient uptake. Most crops require only 1 liter per hectare (2.5 acres) which also includes a seed treatment for greater germination.
+                    </p>
+                    <div class="px-auto mt-3">
+                        <ul class="pl-5 font-medium text-xl list-disc list-inside">
+                            <li>All-Natural seaweed based</li>
+                            <li>Delivers essential micro-nutrients</li>
+                            <li>Patented activator increases plant absorption</li>
+                            <li>Field trial proven on most crops since 2013</li>
+                            <li>Only 1 liter required on most crops per ha.</li>
+                            <li>2 foliar applications only</li>
+                            <li>Can be applied with herbicides</li>
+                            <li>Increases root density</li>
+                            <li>Greater NPK uptake</li>
+                            <li>Greater pest resistance</li>
+                            <li>Stronger plant structure</li>
+                            <li>Can reduce irrigation</li>
+                            <li>Better quality of harvest</li>
+                            <li>Significantly higher yields</li>
+                            <li>Affordable</li>
+                        </ul>
+                    </div>
+                    <button id="myBtn" class="mx-auto bg-red-600 text-white font-bold flex items-center px-4 py-3 mt-7 rounded-full w-max focus:outline-none"><svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg> <span class="mx-2 text-xl">Click here to watch video</span></button>
+                </div>
+                <div id="content2" style="display: none;">
+                    <p class="text-lg">For distributor information and availability, please contact us at <span class="text-blue-600 font-medium text-xl">info@intelligrow.com</span> or <span class="text-blue-600 font-medium text-xl">sales@intelligrow.com</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+
+    function button1() {
+        document.getElementById('content1').style.display = "block";
+        document.getElementById('content2').style.display = "none";
+        document.getElementById('content1').scrollIntoView({ block: 'end',  behavior: 'smooth' });
+    }
+
+    function button2() {
+        document.getElementById('content1').style.display = "none";
+        document.getElementById('content2').style.display = "block";
+        document.getElementById('content2').scrollIntoView({ block: 'end',  behavior: 'smooth' });
+    }
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    var ifr = document.getElementsByName('video')[0];
+    ifr.src = ifr.src;
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+
+    const root = document.documentElement;
+    const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
+    const marqueeContent = document.querySelector("ul.marquee-content");
+
+    root.style.setProperty("--marquee-elements", marqueeContent.children.length);
+
+    for(let i=0; i<marqueeElementsDisplayed; i++) {
+    marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
+    }
+</script>
+</html>
